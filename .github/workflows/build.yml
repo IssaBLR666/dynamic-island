@@ -8,10 +8,18 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-      # Автоматически создаем недостающие системные папки Android/Gradle
+      
+      # 1. Автоматически создаем системную структуру папок Android
       - run: flutter create --platforms=android .
+      
+      # 2. Внедряем разрешение оверлея прямо в системный манифест Android перед сборкой
+      - run: |
+          MANIFEST_PATH="android/app/src/main/AndroidManifest.xml"
+          sed -i '/<manifest/a \    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />\n    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />' $MANIFEST_PATH
+      
       - run: flutter pub get
       - run: flutter build apk --release
+      
       - uses: actions/upload-artifact@v4
         with:
           name: release-apk

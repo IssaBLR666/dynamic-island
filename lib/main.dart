@@ -109,7 +109,17 @@ class _IslandOverlayWidgetState extends State<IslandOverlayWidget> {
   Widget _buildIslandContent() {
     switch (_currentView) {
       case 'compact':
-        return Row(mainAxisAlignment: MainAxisAlignment.end, children: [Container(width: 8, height: 8, margin: const EdgeInsets.only(right: 15), decoration: const BoxDecoration(color: Color(0xFF1A1A1A), shape: BoxShape.circle))]);
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.end, 
+          children: [
+            Container(
+              width: 8, 
+              height: 8, 
+              margin: const EdgeInsets.only(right: 15), 
+              decoration: const BoxDecoration(color: Color(0xFF1A1A1A), shape: BoxShape.circle)
+            )
+          ]
+        );
       case 'music':
         return Padding(
           padding: const EdgeInsets.all(15.0),
@@ -117,9 +127,24 @@ class _IslandOverlayWidgetState extends State<IslandOverlayWidget> {
             children: [
               Row(
                 children: [
-                  Container(width: 42, height: 42, decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), image: const DecorationImage(image: NetworkImage('https://unsplash.com'), fit: BoxFit.cover))),
+                  Container(
+                    width: 42, 
+                    height: 42, 
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8), 
+                      image: const DecorationImage(image: NetworkImage('https://unsplash.com'), fit: BoxFit.cover)
+                    )
+                  ),
                   const SizedBox(width: 12),
-                  Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [Text('Blinding Lights', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14)), Text('The Weeknd', style: TextStyle(color: Colors.grey, fontSize: 12))])),
+                  const Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start, 
+                      children: [
+                        Text('Blinding Lights', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14)), 
+                        Text('The Weeknd', style: TextStyle(color: Colors.grey, fontSize: 12))
+                      ]
+                    )
+                  ),
                   Icon(Icons.bar_chart, color: _isPlaying ? Colors.green : Colors.grey),
                 ],
               ),
@@ -139,9 +164,9 @@ class _IslandOverlayWidgetState extends State<IslandOverlayWidget> {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16), 
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.between, 
             children: [
               const Text('Зарядка', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)), 
+              const Spacer(),
               Row(
                 children: const [
                   Text('75%', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)), 
@@ -159,11 +184,11 @@ class _IslandOverlayWidgetState extends State<IslandOverlayWidget> {
             children: [
               Container(width: 34, height: 34, decoration: BoxDecoration(color: const Color(0xFF2481CC), borderRadius: BorderRadius.circular(10)), child: const Icon(Icons.send, color: Colors.white, size: 16)), 
               const SizedBox(width: 12), 
-              Expanded(
+              const Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center, 
                   crossAxisAlignment: CrossAxisAlignment.start, 
-                  children: const [
+                  children: [
                     Text('Telegram', style: TextStyle(color: Color(0xFF2481CC), fontWeight: FontWeight.bold, fontSize: 13)), 
                     Text('Привет! Изменения применились! 🔥', style: TextStyle(color: Colors.white70, fontSize: 12), maxLines: 1)
                   ]

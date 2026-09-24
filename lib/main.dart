@@ -153,7 +153,25 @@ class _IslandOverlayWidgetState extends State<IslandOverlayWidget> {
           )
         );
       case 'notify':
-        return Padding(padding: const EdgeInsets.symmetric(horizontal: 12), child: Row(children: [Container(width: 34, height: 34, decoration: BoxDecoration(color: const Color(0xFF2481CC), borderRadius: BorderRadius.circular(10)), child: const Icon(Icons.send, color: Colors.white, size: 16)), const SizedBox(width: 12), Expanded(child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: const [Text('Telegram', style: TextStyle(color: Color(0xFF2481CC), fontWeight: FontWeight.bold, fontSize: 13)), Text('Привет! Изменения применились! 🔥', style: TextStyle(color: Colors.white70, fontSize: 12), maxLines: 1)]))]));
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12), 
+          child: Row(
+            children: [
+              Container(width: 34, height: 34, decoration: BoxDecoration(color: const Color(0xFF2481CC), borderRadius: BorderRadius.circular(10)), child: const Icon(Icons.send, color: Colors.white, size: 16)), 
+              const SizedBox(width: 12), 
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center, 
+                  crossAxisAlignment: CrossAxisAlignment.start, 
+                  children: const [
+                    Text('Telegram', style: TextStyle(color: Color(0xFF2481CC), fontWeight: FontWeight.bold, fontSize: 13)), 
+                    Text('Привет! Изменения применились! 🔥', style: TextStyle(color: Colors.white70, fontSize: 12), maxLines: 1)
+                  ]
+                )
+              )
+            ]
+          )
+        );
       default: return const SizedBox.shrink();
     }
   }

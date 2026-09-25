@@ -9,18 +9,8 @@ jobs:
         with:
           channel: 'stable'
       
-      # 1. Создаем структуру Android проекта
+      # Сначала генерируем проект, а затем наши файлы заменят стандартные
       - run: flutter create --platforms=android .
-      
-      # 2. Вживляем разрешения и фоновую службу оверлея в системный код Android перед сборкой
-      - run: |
-          MANIFEST_PATH="android/app/src/main/AndroidManifest.xml"
-          
-          # Добавляем разрешения SYSTEM_ALERT_WINDOW и FOREGROUND_SERVICE сразу после тега <manifest>
-          sed -i '/<manifest/a \    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />\n    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />' $MANIFEST_PATH
-          
-          # Регистрируем необходимую системную службу OverlayService внутри тега <application>
-          sed -i '/<application/a \        <service android:name="to.asww.flutter_overlay_window.FlutterOverlayWindowService" android:exported="false" />' $MANIFEST_PATH
       
       - run: flutter pub get
       - run: flutter build apk --release

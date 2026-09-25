@@ -9,10 +9,30 @@ jobs:
         with:
           channel: 'stable'
       
-      # 1. Генерируем абсолютно стандартный, чистый проект
+      # 1. Генерируем стандартный чистый проект
       - run: flutter create --platforms=android .
       
-      # 2. Скачиваем зависимости и запускаем гарантированно рабочую сборку
+      # 2. Безопасно инжектируем разрешения и службу оверлея через код самого Dart
+      - run: |
+          dart eval '
+          import "dart:io";
+          void main() {
+            var file = File("android/app/src/main/AndroidManifest.xml");
+            var content = file.readAsStringSync();
+            
+            // Заменяем стандартный тег <manifest> на версию с нашими правами
+            content = content.replaceFirst("<manifest", "<manifest xmlns:android=\"http://github.com\"\n    <uses-permission android:name=\"android.permission.SYSTEM_ALERT_WINDOW\" />\n    <uses-permission android:name=\"android.permission.FOREGROUND_SERVICE\" />");
+            
+            // Регистрируем обязательную службу оверлея внутри тега <application>
+            var serviceTag = "\n        <service android:name=\"to.asww.flutter_overlay_window.FlutterOverlayWindowService\" android:exported=\"false\" />";
+            content = content.replaceFirst("<application", "<application" + serviceTag);
+            
+            file.writeAsStringSync(content);
+            print("Манифест успешно обновлен движком Dart!");
+          }
+          '
+      
+      # 3. Скачиваем библиотеки и собираем APK
       - run: flutter pub get
       - run: flutter build apk --release
       

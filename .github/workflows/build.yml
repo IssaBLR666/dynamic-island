@@ -12,7 +12,7 @@ jobs:
       # 1. Генерируем стандартный проект
       - run: flutter create --platforms=android .
       
-      # 2. Создаем идеальный манифест через безопасный printf (без сбоев и чтения файлов)
+      # 2. Создаем идеальный манифест (жестко прописан v2 embedding без $ знаков)
       - run: |
           printf '%s\n' \
           '<manifest xmlns:android="http://github.com"' \
@@ -21,7 +21,7 @@ jobs:
           '    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />' \
           '    <application' \
           '        android:label="Dynamic Island Setup"' \
-          '        android:name="io.flutter.app.FlutterApplication"' \
+          '        android:name="flutter.embedding.android.FlutterApplication"' \
           '        android:icon="@mipmap/ic_launcher">' \
           '        <service' \
           '            android:name="to.asww.flutter_overlay_window.FlutterOverlayWindowService"' \
